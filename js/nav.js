@@ -143,3 +143,70 @@ function addDynamicStyles() {
     `;
     document.head.appendChild(style);
 }
+
+
+function toExchangeImage(img) {
+      const mainImg = document.getElementById('img_main');
+      if (mainImg && img) {
+        mainImg.src = img.src;
+        
+        const thumbnails = document.querySelectorAll('.w-20');
+        thumbnails.forEach(thumb => {
+          thumb.classList.remove('border-2', 'border-blue-500');
+          thumb.classList.add('border');
+        });
+        img.parentElement.classList.remove('border');
+        img.parentElement.classList.add('border-2', 'border-blue-500');
+      }
+    }
+
+    function viewImage(src) {
+      const modal = document.getElementById('image-modal');
+      const modalImg = document.getElementById('modal-image');
+      if (modal && modalImg) {
+        modal.classList.remove('hidden');
+        modalImg.src = src;
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('image-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const productTab = document.getElementById('product-tab');
+      const imagesTab = document.getElementById('images-tab');
+      const informationSection = document.getElementById('information-section');
+      const imagesSection = document.getElementById('images-section');
+
+      if (productTab && imagesTab && informationSection && imagesSection) {
+        productTab.addEventListener('click', function() {
+          informationSection.classList.remove('hidden');
+          imagesSection.classList.add('hidden');
+          productTab.classList.remove('bg-gray-100', 'text-gray-700');
+          productTab.classList.add('bg-blue-600', 'text-white');
+          imagesTab.classList.remove('bg-blue-600', 'text-white');
+          imagesTab.classList.add('bg-gray-100', 'text-gray-700');
+        });
+
+        imagesTab.addEventListener('click', function() {
+          informationSection.classList.add('hidden');
+          imagesSection.classList.remove('hidden');
+          imagesTab.classList.remove('bg-gray-100', 'text-gray-700');
+          imagesTab.classList.add('bg-blue-600', 'text-white');
+          productTab.classList.remove('bg-blue-600', 'text-white');
+          productTab.classList.add('bg-gray-100', 'text-gray-700');
+        });
+      }
+    });
